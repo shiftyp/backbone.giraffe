@@ -5,23 +5,25 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __slice = [].slice;
 
-  $ = window.$, _ = window._, Backbone = window.Backbone;
+  _ = (typeof require === "function" ? require('underscore') : void 0) || window._;
 
   if (!_) {
-    _ = typeof require === "function" ? require('underscore') : void 0;
-    if (!_) {
-      throw new Error('Can\'t find underscore');
-    }
+    throw new Error('Can\'t find underscore');
   }
+
+  Backbone = (typeof require === "function" ? require('backbone') : void 0) || window.Backbone;
 
   if (!Backbone) {
-    Backbone = typeof require === "function" ? require('backbone') : void 0;
-    if (!Backbone) {
-      throw new Error('Can\'t find Backbone');
-    }
+    throw new Error('Can\'t find Backbone');
   }
 
-  Backbone.Giraffe = window.Giraffe = Giraffe = {
+  $ = Backbone.$ || (typeof require === "function" ? require('jquery') : void 0) || window.$;
+
+  if (!$) {
+    throw new Error('Can\'t find jQuery');
+  }
+
+  Backbone.Giraffe = Giraffe = {
     version: '0.2.4',
     app: null,
     apps: {},
@@ -1962,6 +1964,8 @@
     define('backbone.giraffe', [], function() {
       return Giraffe;
     });
+  } else {
+    window.Giraffe = Giraffe;
   }
 
 }).call(this);

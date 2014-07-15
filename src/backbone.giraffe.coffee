@@ -3,19 +3,16 @@
 #
 # Barc Permissive License
 #===============================================================================
+_ = require?('underscore') or window._
+throw new Error('Can\'t find underscore') unless _
 
+Backbone = require?('backbone') or window.Backbone
+throw new Error('Can\'t find Backbone') unless Backbone
 
-{$, _, Backbone} = window
+$ = Backbone.$ or require?('jquery') or window.$
+throw new Error('Can\'t find jQuery') unless $
 
-if not _
-  _ = require?('underscore')
-  throw new Error('Can\'t find underscore') unless _
-
-if not Backbone
-  Backbone = require?('backbone')
-  throw new Error('Can\'t find Backbone') unless Backbone
-
-Backbone.Giraffe = window.Giraffe = Giraffe =
+Backbone.Giraffe = Giraffe =
   version: '{{VERSION}}'
   app: null # stores the most recently created instance of App, so for simple cases with 1 app Giraffe objects don't need an app reference
   apps: {} # cache for all app views by `cid`
@@ -1632,3 +1629,5 @@ if _.isObject(module?.exports)
 else if typeof define is 'function' and define.amd
   # Register Giraffe as a named AMD module.
   define 'backbone.giraffe', [], -> Giraffe
+else
+	window.Giraffe = Giraffe

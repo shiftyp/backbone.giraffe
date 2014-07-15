@@ -1,26 +1,30 @@
 (function() {
-  var $, Backbone, Contrib, _,
+  var $, Backbone, Contrib, Giraffe, _,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  $ = window.$, _ = window._, Backbone = window.Backbone;
+  Giraffe = (typeof require === "function" ? require('backbone.giraffe') : void 0) || window.Giraffe;
 
-  if (typeof Giraffe === "undefined" || Giraffe === null) {
+  if (!Giraffe) {
     throw new Error('Can\'t find Giraffe');
   }
 
+  _ = (typeof require === "function" ? require('underscore') : void 0) || window._;
+
   if (!_) {
-    _ = typeof require === "function" ? require('underscore') : void 0;
-    if (!_) {
-      throw new Error('Can\'t find underscore');
-    }
+    throw new Error('Can\'t find underscore');
   }
 
+  Backbone = (typeof require === "function" ? require('backbone') : void 0) || window.Backbone;
+
   if (!Backbone) {
-    Backbone = typeof require === "function" ? require('backbone') : void 0;
-    if (!Backbone) {
-      throw new Error('Can\'t find Backbone');
-    }
+    throw new Error('Can\'t find Backbone');
+  }
+
+  $ = Backbone.$ || (typeof require === "function" ? require('jquery') : void 0) || window.$;
+
+  if (!$) {
+    throw new Error('Can\'t find jQuery');
   }
 
   Contrib = Giraffe.Contrib = {

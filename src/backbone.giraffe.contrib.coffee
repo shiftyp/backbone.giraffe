@@ -1,15 +1,14 @@
-{$, _, Backbone} = window
+Giraffe = require?('backbone.giraffe') or window.Giraffe
+throw new Error('Can\'t find Giraffe') unless Giraffe
 
-if !Giraffe?
-  throw new Error('Can\'t find Giraffe')
+_ = require?('underscore') or window._
+throw new Error('Can\'t find underscore') unless _
 
-if not _
-  _ = require?('underscore')
-  throw new Error('Can\'t find underscore') unless _
+Backbone = require?('backbone') or window.Backbone
+throw new Error('Can\'t find Backbone') unless Backbone
 
-if not Backbone
-  Backbone = require?('backbone')
-  throw new Error('Can\'t find Backbone') unless Backbone
+$ = Backbone.$ or require?('jquery') or window.$
+throw new Error('Can\'t find jQuery') unless $
 
 Contrib = Giraffe.Contrib =
   version: '{{VERSION}}'
